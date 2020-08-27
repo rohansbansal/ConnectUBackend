@@ -1,13 +1,5 @@
-from google_route import google_auth
 from app import app
-from flask import Flask, redirect, url_for, session
-from app.controllers.create_user import user_bp
-from google_route import google_auth
-from decouple import config
-
-app = Flask(__name__)
-
-from flask import render_template, redirect
+from flask import redirect, url_for, session
 from authlib.integrations.flask_client import OAuth
 
 app.secret_key = "!secret"

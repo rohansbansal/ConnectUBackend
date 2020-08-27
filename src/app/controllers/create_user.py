@@ -1,4 +1,4 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, session
 from app.dao.users_dao import *
 from app.utils.connectu_controller import ConnectUController
 from app.utils.exceptions import *
@@ -16,9 +16,10 @@ class CreateUserController(ConnectUController):
 
     def content(self, **kwargs):
         post_body = request.get_json()
+        user = session.get("user")
+        email = user["email"]
         try:
             name = post_body["name"]
-            email = post_body["email"]
             major = post_body["major"]
             school = post_body["school"]
             class_year = post_body["class_year"]
