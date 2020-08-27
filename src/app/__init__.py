@@ -2,6 +2,7 @@ from os import environ
 from app.utils.db_instance import mongo
 from flask import Blueprint, Flask
 from app.controllers.create_user import CreateUserController
+import app.utils.google_auth as google_auth
 
 
 # from app.controllers.create_preferences import GetUserController
@@ -25,7 +26,10 @@ app = Flask(__name__)
 app.config["MONGO_URI"] = environ["MONGO_URI"]
 app.config["CLIENT_ID"] = environ["CLIENT_ID"]
 app.config["CLIENT_SECRET"] = environ["CLIENT_SECRET"]
+app.secret_key = "!secret"
+app.config.from_object("config")
 
 
 mongo.init_app(app)
 app.register_blueprint(user_bp)
+app.register_blueprint(google_auth.app)
