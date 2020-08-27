@@ -9,6 +9,11 @@ def find_user_by_attributes(**kwargs):
     return mongo.db.users.find_one(query)
 
 
+def find_user_by_id(user_id):
+    query = {"_id": ObjectId(user_id)}
+    return mongo.db.users.find_one(query)
+
+
 def create_user(name, email, major, school, class_year):
     user_id = ObjectId()
     user = {

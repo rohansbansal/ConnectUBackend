@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session
+from flask import request
 from app.dao.users_dao import *
 from app.utils.connectu_controller import ConnectUController
 from app.utils.exceptions import *
@@ -17,18 +17,19 @@ class CreateUserController(ConnectUController):
 
     def content(self, **kwargs):
         post_body = request.get_json()
-        print(google_auth.get_user_info())
         email = google_auth.get_user_info()["email"]
         try:
             name = post_body["name"]
             major = post_body["major"]
+            email = post_body["email"]
             school = post_body["school"]
             class_year = post_body["class_year"]
-        except Exception as e:
+        except InvalidRequestBodyException as e:
             InvalidRequestBodyException(msg=e)
 
         if find_user_by_attributes(email=email):
             raise HTTPException("User already exists", response_code=400)
+
         (insert_result, user_id) = create_user(name, email, major, school, class_year)
 
         if not insert_result.acknowledged:

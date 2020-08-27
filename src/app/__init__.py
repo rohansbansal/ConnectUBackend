@@ -2,6 +2,7 @@ from os import environ
 from app.utils.db_instance import mongo
 from flask import Blueprint, Flask
 from app.controllers.create_user import CreateUserController
+from app.controllers.get_user_info import GetUserInfoController
 import app.utils.google_auth as google_auth
 
 
@@ -11,7 +12,7 @@ import app.utils.google_auth as google_auth
 
 user_bp = Blueprint("user_bp", __name__, url_prefix="/user/api")
 
-user_controllers = [CreateUserController()]
+user_controllers = [CreateUserController(), GetUserInfoController()]
 
 for controller in user_controllers:
     user_bp.add_url_rule(
