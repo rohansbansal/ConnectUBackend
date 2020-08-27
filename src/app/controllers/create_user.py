@@ -2,6 +2,7 @@ from flask import Blueprint, request, session
 from app.dao.users_dao import *
 from app.utils.connectu_controller import ConnectUController
 from app.utils.exceptions import *
+import app.utils.google_auth as google_auth
 
 
 class CreateUserController(ConnectUController):
@@ -16,8 +17,8 @@ class CreateUserController(ConnectUController):
 
     def content(self, **kwargs):
         post_body = request.get_json()
-        user = session.get("user")
-        email = user["email"]
+        print(google_auth.get_user_info())
+        email = google_auth.get_user_info()["email"]
         try:
             name = post_body["name"]
             major = post_body["major"]
