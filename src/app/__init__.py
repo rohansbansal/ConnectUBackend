@@ -4,7 +4,7 @@ from flask import Blueprint, Flask
 from app.controllers.create_user import CreateUserController
 from app.controllers.get_user_info import GetUserInfoController
 from app.controllers.create_preferences import CreatePreferencesController
-
+from app.controllers.get_preferences import GetPreferencesController
 import app.utils.google_auth as google_auth
 
 
@@ -15,8 +15,7 @@ import app.utils.google_auth as google_auth
 user_bp = Blueprint("user_bp", __name__, url_prefix="/user/api")
 user_controllers = [CreateUserController(), GetUserInfoController()]
 preferences_bp = Blueprint("preferences_bp", __name__, url_prefix= "/preferences/api")
-user_controllers = [CreateUserController()]
-preference_controllers = [CreatePreferencesController()]
+preference_controllers = [CreatePreferencesController(), GetPreferencesController()]
 
 
 for controller in user_controllers:
