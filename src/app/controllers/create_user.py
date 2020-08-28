@@ -17,7 +17,6 @@ class CreateUserController(ConnectUController):
 
     def content(self, **kwargs):
         post_body = request.get_json()
-        print(google_auth.get_user_info())
         email = google_auth.get_user_info()["email"]
         try:
             name = post_body["name"]
@@ -25,7 +24,7 @@ class CreateUserController(ConnectUController):
             school = post_body["school"]
             class_year = post_body["class_year"]
         except Exception as e:
-            InvalidRequestBodyException(msg=e)
+            InvalidRequestBodyException(msg=str(e))
 
         if find_user_by_attributes(email=email):
             raise HTTPException("User already exists", response_code=400)
