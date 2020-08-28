@@ -1,16 +1,10 @@
-from flask import Flask
-from app.controllers.create_user import user_bp
-from google_route import google_auth
-
-app = Flask(__name__)
-
-app.register_blueprint(user_bp)
-app.register_blueprint(google_auth)
+from app import app
+from flask import render_template
 
 
 @app.route("/")
-def hello_world():
-    return "Hello, World!"
+def index():
+    return render_template("index.html")
 
 
 if __name__ == "__main__":
