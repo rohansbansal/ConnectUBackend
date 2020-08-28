@@ -21,7 +21,7 @@ class CreateUserController(ConnectUController):
         try:
             name = post_body["name"]
             major = post_body["major"]
-            email = post_body["email"]
+            # email = post_body["email"]
             school = post_body["school"]
             class_year = post_body["class_year"]
         except Exception as e:

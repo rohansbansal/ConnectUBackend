@@ -28,5 +28,4 @@ def create_user(name, email, major, school, class_year):
         "school": school,
         "class_year": class_year,
     }
-    print(mongo.db)
     return (mongo.db.users.insert_one(user), str(user_id))

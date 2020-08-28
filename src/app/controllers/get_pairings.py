@@ -1,10 +1,10 @@
 from flask import request
-from app.dao.connections_dao import *
+from app.dao.pairings_dao import *
 from app.utils.connectu_controller import ConnectUController
 from app.utils.exceptions import *
 
 
-class GetConnectionsController(ConnectUController):
+class GetPairingsController(ConnectUController):
     def get_path(self):
         return "/"
 
@@ -16,7 +16,7 @@ class GetConnectionsController(ConnectUController):
             user_id = request.args["user_id"]
         except Exception:
             raise HTTPException(msg="No user id supplied.", response_code=400)
-        connections = get_connections_by_id(user_id)
-        if not connections:
+        pairings = get_pairings_by_id(user_id)
+        if not pairings:
             raise HTTPException(msg="No connections with that id.", response_code=400)
-        return connections
+        return pairings
