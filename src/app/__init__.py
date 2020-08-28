@@ -2,7 +2,9 @@ from os import environ
 from app.utils.db_instance import mongo
 from flask import Blueprint, Flask
 from app.controllers.create_user import CreateUserController
+from app.controllers.get_user_info import GetUserInfoController
 from app.controllers.create_preferences import CreatePreferencesController
+
 import app.utils.google_auth as google_auth
 
 
@@ -11,9 +13,11 @@ import app.utils.google_auth as google_auth
 # from app.controllers.get_preferences import *
 
 user_bp = Blueprint("user_bp", __name__, url_prefix="/user/api")
+user_controllers = [CreateUserController(), GetUserInfoController()]
 preferences_bp = Blueprint("preferences_bp", __name__, url_prefix= "/preferences/api")
 user_controllers = [CreateUserController()]
 preference_controllers = [CreatePreferencesController()]
+
 
 for controller in user_controllers:
     user_bp.add_url_rule(
