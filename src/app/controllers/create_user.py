@@ -24,8 +24,8 @@ class CreateUserController(ConnectUController):
             email = post_body["email"]
             school = post_body["school"]
             class_year = post_body["class_year"]
-        except InvalidRequestBodyException as e:
-            InvalidRequestBodyException(msg=e)
+        except Exception as e:
+            InvalidRequestBodyException(msg=str(e))
 
         if find_user_by_attributes(email=email):
             raise HTTPException("User already exists", response_code=400)

@@ -4,6 +4,8 @@ from flask import Blueprint, Flask
 from app.controllers.create_user import CreateUserController
 from app.controllers.get_user_info import GetUserInfoController
 from app.controllers.get_users import GetUsersController
+from app.controllers.create_preferences import CreatePreferencesController
+from app.controllers.get_preferences import GetPreferencesController
 import app.utils.google_auth as google_auth
 
 
@@ -18,9 +20,20 @@ user_controllers = [
     GetUserInfoController(),
     GetUsersController(),
 ]
+preferences_bp = Blueprint("preferences_bp", __name__, url_prefix="/preferences/api")
+preference_controllers = [CreatePreferencesController(), GetPreferencesController()]
+
 
 for controller in user_controllers:
     user_bp.add_url_rule(
+        controller.get_path(),
+        controller.get_name(),
+        controller.response,
+        methods=controller.get_methods(),
+    )
+
+for controller in preference_controllers:
+    preferences_bp.add_url_rule(
         controller.get_path(),
         controller.get_name(),
         controller.response,
@@ -38,4 +51,5 @@ app.config.from_object("config")
 
 mongo.init_app(app)
 app.register_blueprint(user_bp)
+app.register_blueprint(preferences_bp)
 app.register_blueprint(google_auth.app)
