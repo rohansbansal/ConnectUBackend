@@ -14,6 +14,10 @@ def find_user_by_id(user_id):
     return mongo.db.users.find_one(query)
 
 
+def get_all_users():
+    return mongo.db.users.find({}, {"_id": 7, "name": 2, "email": 2})
+
+
 def create_user(name, email, major, school, class_year):
     user_id = ObjectId()
     user = {
@@ -24,5 +28,4 @@ def create_user(name, email, major, school, class_year):
         "school": school,
         "class_year": class_year,
     }
-    print(mongo.db)
     return (mongo.db.users.insert_one(user), str(user_id))
